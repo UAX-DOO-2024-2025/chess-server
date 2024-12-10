@@ -1,4 +1,4 @@
-package juego;
+package com.uax.chess.controller.juego;
 
 import java.util.ArrayList;
 import java.util.Collections;

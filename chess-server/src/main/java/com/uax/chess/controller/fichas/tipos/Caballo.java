@@ -1,7 +1,7 @@
-package fichas.tipos;
+package com.uax.chess.controller.fichas.tipos;
 
-import fichas.Ficha;
-import fichas.TiposColor;
+import com.uax.chess.controller.fichas.Ficha;
+import com.uax.chess.controller.fichas.TiposColor;
 
 public class Caballo extends Ficha {
     public Caballo(TiposColor color) {
