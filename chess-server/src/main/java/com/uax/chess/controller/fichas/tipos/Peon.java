@@ -1,9 +1,9 @@
-package fichas.tipos;
+package com.uax.chess.controller.fichas.tipos;
 
-import fichas.Ficha;
-import fichas.TiposColor;
+import com.uax.chess.controller.fichas.Ficha;
+import com.uax.chess.controller.fichas.TiposColor;
+import com.uax.chess.controller.juego.Tablero;
 
-import static juego.Tablero.turno;
 
 public class Peon extends Ficha {
 
@@ -15,7 +15,7 @@ public class Peon extends Ficha {
     public boolean validarMovimiento(int filaOrigen, int filaDestino, int columnOrigen, int columnDestino) {
         if((columnOrigen == columnDestino || columnOrigen == (columnDestino + 1) ||
                 columnOrigen == (columnDestino - 1)) && columnDestino < 8){
-            if (turno == 1){
+            if (Tablero.turno == 1){
                 if(filaOrigen == (filaDestino + 1)) {
                     return true;
                 } else if(filaOrigen == 6 && filaOrigen == filaDestino + 2){
@@ -25,7 +25,7 @@ public class Peon extends Ficha {
                     return true;
                 }
 
-            }else if (turno == 2){
+            }else if (Tablero.turno == 2){
                 if(filaOrigen == (filaDestino - 1)) {
                     return true;
                 } else if(filaOrigen == 1 && filaOrigen == filaDestino - 2){

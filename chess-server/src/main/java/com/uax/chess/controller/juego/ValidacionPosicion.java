@@ -1,4 +1,4 @@
-package juego;
+package com.uax.chess.controller.juego;
 
 public class ValidacionPosicion extends RuntimeException {
     public ValidacionPosicion(String message) {

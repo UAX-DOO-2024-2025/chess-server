@@ -1,4 +1,4 @@
-package fichas;
+package com.uax.chess.controller.fichas;
 
 public abstract class Ficha implements Color, Comparable<Ficha>{
     private TiposColor color;

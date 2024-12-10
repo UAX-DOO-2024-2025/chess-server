@@ -1,8 +1,7 @@
-package juego;
+package com.uax.chess.controller.juego;
 
-import fichas.Ficha;
-import fichas.tipos.*;
-
+import com.uax.chess.controller.fichas.Ficha;
+import com.uax.chess.controller.fichas.tipos.*;
 
 public class Tablero {
     private Object[][] tablero;

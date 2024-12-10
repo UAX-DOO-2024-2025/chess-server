@@ -1,9 +1,10 @@
-package juego;
+package com.uax.chess.controller.juego;
 
-import fichas.Color;
-import fichas.Ficha;
-import fichas.TiposColor;
-import fichas.tipos.*;
+import com.uax.chess.controller.fichas.Color;
+import com.uax.chess.controller.fichas.Ficha;
+import com.uax.chess.controller.fichas.TiposColor;
+import com.uax.chess.controller.fichas.tipos.*;
+
 
 public class Jugador implements Color {
     private String nombre;

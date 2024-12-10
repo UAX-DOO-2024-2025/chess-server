@@ -1,16 +1,16 @@
-package fichas.tipos;
+package com.uax.chess.controller.fichas.tipos;
 
-import fichas.Ficha;
-import fichas.TiposColor;
+import com.uax.chess.controller.fichas.Ficha;
+import com.uax.chess.controller.fichas.TiposColor;
 
-public class Alfil extends Ficha {
-    public Alfil(TiposColor color) {
+public class Torre extends Ficha {
+    public Torre(TiposColor color) {
         super(color);
     }
 
     @Override
     public boolean validarMovimiento(int filaOrigen, int filaDestino, int columnOrigen, int columnDestino) {
-        if(Math.abs(filaDestino - filaOrigen) == Math.abs(columnDestino - columnOrigen)){
+        if(columnOrigen == columnDestino || filaOrigen == filaDestino){
             return true;
         }
         return false;
@@ -19,14 +19,14 @@ public class Alfil extends Ficha {
     @Override
     public String obtenerRepresentacion() {
         if (getColor()== TiposColor.BLANCO){
-            return "♗";
+            return "♖";
         }else {
-            return "♝";
+            return "♜";
         }
     }
 
     @Override
     public int prioridad() {
-        return 3;
+        return 5;
     }
 }
