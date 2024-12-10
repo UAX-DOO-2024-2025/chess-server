@@ -1,3 +1,5 @@
+package com.uax.chess.controller;
+
 import java.util.Scanner;
 
 public class Tablero {

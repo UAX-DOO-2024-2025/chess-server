@@ -1,3 +1,5 @@
+package com.uax.chess.controller;
+
 import com.uax.chess.controller.Color;
 
 public abstract class Ficha implements Color, Comparable<Ficha> {

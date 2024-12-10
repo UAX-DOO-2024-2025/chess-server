@@ -1,3 +1,5 @@
+package com.uax.chess.controller;
+
 import com.uax.chess.controller.Ficha;
 
 public class Alfil extends Ficha {

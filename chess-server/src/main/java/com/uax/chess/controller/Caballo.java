@@ -1,4 +1,6 @@
-import com.uax.chess.controller.Caballo;
+package com.uax.chess.controller;
+
+import com.uax.chess.controller.Ficha;
 
 public class Caballo extends Ficha {
 

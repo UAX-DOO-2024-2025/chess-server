@@ -1,3 +1,5 @@
+package com.uax.chess.controller;
+
 import com.uax.chess.controller.Ficha;
 
 public class Reina extends Ficha {
@@ -26,7 +28,7 @@ public class Reina extends Ficha {
 
     @Override
     public char obtenerRepresentacion() {
-        return getColor() == TiposColor.BLANCO ? 'Q' : 'q';
+        return getColor() == TiposColor.BLANCO ? '♕' : '♛';
     }
 
     @Override

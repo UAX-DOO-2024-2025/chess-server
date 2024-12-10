@@ -1,3 +1,9 @@
+package com.uax.chess.controller;
+
+import com.uax.chess.controller.Ficha;
+import com.uax.chess.controller.Tablero;
+import com.uax.chess.controller.TiposColor;
+
 import java.util.Scanner;
 
 public class JuegoAjedrez {
