@@ -1,0 +1,8 @@
+### GET HELLO WORLD!
+GET http://localhost:8080/
+
+### POST request to create a new game
+POST http://localhost:8080/partida
+
+### GET request to retrieve game with ID 1
+GET http://localhost:8080/partida/1
