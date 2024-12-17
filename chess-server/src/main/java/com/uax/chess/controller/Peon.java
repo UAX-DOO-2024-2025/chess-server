@@ -52,7 +52,7 @@ public class Peon extends Ficha {
 
     @Override
     public char obtenerRepresentacion() {
-        return getColor() == TiposColor.BLANCO ? 'P' : 'p';
+        return getColor() == TiposColor.BLANCO ? '♙' : '♟';
     }
 
     @Override
