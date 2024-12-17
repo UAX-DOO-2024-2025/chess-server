@@ -14,6 +14,8 @@ public class Peon extends Ficha {
     public boolean validarMovimiento(int filaOrigen, int columnaOrigen, int filaDestino, int columnaDestino,
             Tablero tablero) {
         int direccion = getColor() == TiposColor.BLANCO ? -1 : 1;
+        capturaPaso = false;
+
 
         // Movimiento estándar
         if (columnaOrigen == columnaDestino && filaDestino - filaOrigen == direccion &&
@@ -23,9 +25,10 @@ public class Peon extends Ficha {
 
         // Movimiento inicial de dos casillas
         if (columnaOrigen == columnaDestino && filaDestino - filaOrigen == 2 * direccion &&
-                (filaOrigen == 6 || filaOrigen == 1) &&
+                filaOrigen == (getColor() == TiposColor.BLANCO ? 6 : 1) &&
                 tablero.getCelda(filaDestino, columnaDestino) == null &&
                 tablero.getCelda(filaOrigen + direccion, columnaDestino) == null) {
+            capturaPaso = true;
             return true;
         }
 
