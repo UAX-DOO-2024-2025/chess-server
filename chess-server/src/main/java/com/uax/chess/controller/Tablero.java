@@ -1,8 +1,14 @@
 package com.uax.chess.controller;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializable;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+
+import java.io.IOException;
 import java.util.Scanner;
 
-public class Tablero {
+public class Tablero implements JsonSerializable {
     private static Tablero instancia;
     private Ficha[][] celdas;
 
@@ -268,4 +274,26 @@ public class Tablero {
         }
     }
 
+    @Override
+    public void serialize(JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        gen.writeStartArray();
+        for (int fila = 0; fila < 8; fila++) {
+            gen.writeStartArray();
+            for (int columna = 0; columna < 8; columna++) {
+                Ficha ficha = getCelda(fila, columna);
+                if (ficha != null) {
+                    gen.writeString(ficha.toString());
+                } else {
+                    gen.writeNull();
+                }
+            }
+            gen.writeEndArray();
+        }
+        gen.writeEndArray();
+    }
+
+    @Override
+    public void serializeWithType(JsonGenerator gen, SerializerProvider serializers, TypeSerializer typeSer) throws IOException {
+        serialize(gen, serializers);
+    }
 }
