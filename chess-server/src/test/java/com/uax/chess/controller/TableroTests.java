@@ -11,7 +11,6 @@ public class TableroTest {
     void setUp() {
         tablero = Tablero.getInstance();
     }
-
     void singletonInstance() {
         Tablero anotherInstance = Tablero.getInstance();
         assertSame(tablero, anotherInstance);
