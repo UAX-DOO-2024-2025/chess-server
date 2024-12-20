@@ -127,4 +127,5 @@ public class TableroTest {
         assertNull(tablero.getCelda(0, 4));
         assertNull(tablero.getCelda(0, 7));
     }
+
 }
