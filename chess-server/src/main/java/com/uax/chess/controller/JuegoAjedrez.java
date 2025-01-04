@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class JuegoAjedrez {
 
     public static void main(String[] args) {
-        Tablero tablero = Tablero.getInstance();
+        Tablero tablero = new Tablero();
         Scanner scanner = new Scanner(System.in);
 
         TiposColor turnoActual = TiposColor.BLANCO;

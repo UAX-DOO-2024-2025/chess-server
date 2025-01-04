@@ -8,8 +8,7 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Tablero implements JsonSerializable {
-    private static Tablero instancia;
+public class Tablero implements JsonSerializable{
     private Ficha[][] celdas;
 
     public Tablero() {
@@ -49,13 +48,6 @@ public class Tablero implements JsonSerializable {
         // Reyes
         celdas[0][4] = new Rey(TiposColor.NEGRO);
         celdas[7][4] = new Rey(TiposColor.BLANCO);
-    }
-
-    public static Tablero getInstance() {
-        if (instancia == null) {
-            instancia = new Tablero();
-        }
-        return instancia;
     }
 
     public Ficha getCelda(int fila, int columna) {
@@ -274,22 +266,22 @@ public class Tablero implements JsonSerializable {
         }
     }
 
+
     @Override
-    public void serialize(JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        gen.writeStartArray();
-        for (int fila = 0; fila < 8; fila++) {
-            gen.writeStartArray();
-            for (int columna = 0; columna < 8; columna++) {
-                Ficha ficha = getCelda(fila, columna);
+    public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        jsonGenerator.writeStartArray();
+        for (Ficha[] fila : celdas) {
+            jsonGenerator.writeStartArray();
+            for (Ficha ficha : fila) {
                 if (ficha != null) {
-                    gen.writeString(ficha.toString());
+                    ficha.serialize(jsonGenerator, serializerProvider);
                 } else {
-                    gen.writeNull();
+                    jsonGenerator.writeNull();
                 }
             }
-            gen.writeEndArray();
+            jsonGenerator.writeEndArray();
         }
-        gen.writeEndArray();
+        jsonGenerator.writeEndArray();
     }
 
     @Override
