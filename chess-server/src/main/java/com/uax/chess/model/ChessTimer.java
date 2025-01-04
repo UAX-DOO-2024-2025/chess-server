@@ -1,6 +1,6 @@
 package com.uax.chess.model;
 
-class ChessTimer {
+public class ChessTimer {
     private int hours, minutes, seconds;
     private boolean active;
 
