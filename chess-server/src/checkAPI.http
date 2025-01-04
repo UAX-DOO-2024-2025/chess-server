@@ -2,7 +2,13 @@
 GET http://localhost:8080/
 
 ### POST request to create a new game
-POST http://localhost:8080/partida
+GET http://localhost:8080/partida
+
+### GET request to retrieve game with ID 1
+GET http://localhost:8080/partida/1
+
+### POST request to move a piece in game with ID 1
+POST http://localhost:8080/partida/1?filaOrigen=0&columnaOrigen=1&filaDestino=2&columnaDestino=2
 
 ### GET request to retrieve game with ID 1
 GET http://localhost:8080/partida/1
