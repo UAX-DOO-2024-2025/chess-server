@@ -8,9 +8,25 @@ import org.springframework.http.ResponseEntity;
 @RequestMapping("/chess-timer")
 public class ChessTimerController {
 
-    private ChessTimer timer1 = new ChessTimer(0, 5, 0); // Jugador 1
-    private ChessTimer timer2 = new ChessTimer(0, 5, 0); // Jugador 2
+    private ChessTimer timer1;
+    private ChessTimer timer2;
     private boolean timer1Active = true;
+
+    // Inicializar temporizadores con tiempo personalizado
+    @PostMapping("/init")
+    public ResponseEntity<String> initializeTimers(
+            @RequestParam int minutesPlayer1,
+            @RequestParam int secondsPlayer1,
+            @RequestParam int minutesPlayer2,
+            @RequestParam int secondsPlayer2) {
+
+        timer1 = new ChessTimer(0, minutesPlayer1, secondsPlayer1);
+        timer2 = new ChessTimer(0, minutesPlayer2, secondsPlayer2);
+
+        return ResponseEntity.ok("Timers initialized with Player 1: " +
+                minutesPlayer1 + ":" + secondsPlayer1 + " and Player 2: " +
+                minutesPlayer2 + ":" + secondsPlayer2);
+    }
 
     @PostMapping("/start")
     public ResponseEntity<String> startTimer(@RequestParam boolean isPlayer1) {
@@ -32,13 +48,6 @@ public class ChessTimerController {
         return ResponseEntity.ok("Both timers stopped.");
     }
 
-    @GetMapping("/time")
-    public ResponseEntity<String> getTime() {
-        String time1 = timer1.getTime();
-        String time2 = timer2.getTime();
-        return ResponseEntity.ok("Player 1: " + time1 + ", Player 2: " + time2);
-    }
-
     @PostMapping("/switch")
     public ResponseEntity<String> switchTimers() {
         if (timer1Active) {
@@ -50,5 +59,12 @@ public class ChessTimerController {
         }
         timer1Active = !timer1Active;
         return ResponseEntity.ok("Timers switched.");
+    }
+
+    @GetMapping("/time")
+    public ResponseEntity<String> getTime() {
+        String time1 = timer1.getTime();
+        String time2 = timer2.getTime();
+        return ResponseEntity.ok("Player 1: " + time1 + ", Player 2: " + time2);
     }
 }
