@@ -8,29 +8,22 @@ import java.util.List;
 
 @Service
 public class GameService {
-
-    private final List<Game> games = new ArrayList<>();
+    private final List<Game> games = new ArrayList<>(); // Almacena todas las partidas
 
     public Game createGame(Game game) {
-        game.initializeGame();
-        games.add(game);
-        return game;
+        game.initializeGame(); // Inicializa el juego
+        games.add(game); // Agrega la partida a la lista
+        return game; // Devuelve la partida creada
     }
 
-    public String makeMove(Long gameId, String from, String to) {
-        Game game = getGameById(gameId);
-        if (game != null) {
-            return game.makeMove(from, to);
-        }
-        return "Partida no encontrada o movimiento inválido.";
+    public List<Game> getAllGames() {
+        return games; // Devuelve todas las partidas
     }
 
-    public String[][] getBoard(Long gameId) {
-        Game game = getGameById(gameId);
-        return game != null ? game.getBoard() : null;
-    }
-
-    private Game getGameById(Long id) {
-        return games.stream().filter(game -> game.getId().equals(id)).findFirst().orElse(null);
+    public Game getGameById(Long id) {
+        return games.stream()
+                .filter(game -> game.getId().equals(id))
+                .findFirst()
+                .orElse(null); // Encuentra una partida por su ID
     }
 }
