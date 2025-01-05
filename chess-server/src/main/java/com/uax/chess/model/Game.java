@@ -1,19 +1,16 @@
 package com.chess.model;
 
 import com.chess.logic.ChessGame;
-import com.chess.logic.Tablero;
-import com.chess.logic.Jugador;
 
 public class Game {
     private Long id;
-    private Jugador playerWhite;
-    private Jugador playerBlack;
+    private String playerWhite;
+    private String playerBlack;
     private String status; // active, finished, waiting
-    private ChessGame chessGame;
-    private Tablero tablero;
+    private ChessGame chessGame; // Lógica del juego de ajedrez
 
     public Game() {
-        this.chessGame = new ChessGame();
+        this.chessGame = new ChessGame(); // Inicializa el tablero
     }
 
     public Long getId() {
@@ -24,19 +21,19 @@ public class Game {
         this.id = id;
     }
 
-    public Jugador getPlayerWhite() {
+    public String getPlayerWhite() {
         return playerWhite;
     }
 
-    public void setPlayerWhite(Jugador playerWhite) {
+    public void setPlayerWhite(String playerWhite) {
         this.playerWhite = playerWhite;
     }
 
-    public Jugador getPlayerBlack() {
+    public String getPlayerBlack() {
         return playerBlack;
     }
 
-    public void setPlayerBlack(Jugador playerBlack) {
+    public void setPlayerBlack(String playerBlack) {
         this.playerBlack = playerBlack;
     }
 
@@ -48,15 +45,12 @@ public class Game {
         this.status = status;
     }
 
+    public ChessGame getChessGame() {
+        return chessGame;
+    }
+
     public void initializeGame() {
-        this.tablero.inicializarTablero(playerWhite, playerBlack);
-    }
-
-    public String makeMove(int filaOrigen, int columnaOrigen, int filaDestino, int columnaDestino, Jugador jugador) {
-        return this.tablero.moverFicha();
-    }
-
-    public String[][] getBoard() {
-        return this.chessGame.getBoard();
+        this.status = "active"; // Cambia el estado a activo
+        this.chessGame.initializeBoard(); // Inicializa el tablero de ajedrez
     }
 }
