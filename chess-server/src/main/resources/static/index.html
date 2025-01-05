@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Server</title>
+    <script>
+        async function createGame() {
+            const response = await fetch('/api/games', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: 1,
+                    playerWhite: 'Alice',
+                    playerBlack: 'Bob',
+                    status: 'waiting'
+                })
+            });
+            const game = await response.json();
+            document.getElementById('game-id').textContent = `Game ID: ${game.id}`;
+        }
+
+        async function makeMove() {
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+
+            const response = await fetch(`/api/games/1/move`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ from, to })
+            });
+
+            const result = await response.text();
+            alert(result);
+            getBoard();
+        }
+
+        async function getBoard() {
+            const response = await fetch('/api/games/1/board');
+            const board = await response.json();
+
+            const boardElement = document.getElementById('board');
+            boardElement.innerHTML = '';
+            board.forEach(row => {
+                const rowElement = document.createElement('div');
+                rowElement.textContent = row.map(cell => cell || '.').join(' ');
+                boardElement.appendChild(rowElement);
+            });
+        }
+    </script>
+</head>
+<body>
+<h1>Chess Server</h1>
+<button onclick="createGame()">Crear Partida</button>
+<p id="game-id"></p>
+
+<h2>Hacer Movimiento</h2>
+<input id="from" placeholder="Desde (e.g., e2)" />
+<input id="to" placeholder="Hasta (e.g., e4)" />
+<button onclick="makeMove()">Mover</button>
+
+<h2>Tablero</h2>
+<div id="board"></div>
+</body>
+</html>
