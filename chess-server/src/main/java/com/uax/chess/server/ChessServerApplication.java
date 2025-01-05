@@ -4,14 +4,13 @@ import com.uax.chess.model.ChessGame;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 
 @SpringBootApplication
-@Controller
+@RestController
 public class ChessServerApplication {
 
     private int id = 1;
@@ -21,12 +20,7 @@ public class ChessServerApplication {
         SpringApplication.run(ChessServerApplication.class, args);
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "home";
-    }
-
-    @GetMapping("/partida")
+    @PostMapping("/partida")
     @ResponseBody
     public String crearPartida() {
         ChessGame partida = new ChessGame();
