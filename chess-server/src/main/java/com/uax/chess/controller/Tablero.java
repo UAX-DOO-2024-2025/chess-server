@@ -76,23 +76,12 @@ public class Tablero {
             return false;
         }
 
-        // Manejar captura al paso
-        if (ficha instanceof Peon) {
-            manejarCapturaAlPaso((Peon) ficha, filaOrigen, columnaOrigen, filaDestino, columnaDestino);
-        }
-
         // Manejar enroque
         if (ficha instanceof Rey && Math.abs(columnaDestino - columnaOrigen) == 2) {
-            int direccion = (columnaDestino > columnaOrigen) ? 1 : -1;
-            int torreColumna = (direccion == 1) ? 7 : 0; // Columna de la torre
-            int nuevaTorreColumna = columnaOrigen + direccion;
-
-            // Mueve la torre primero
-            Ficha torre = getCelda(filaOrigen, torreColumna);
-            if (torre instanceof Torre) {
-                setCelda(filaOrigen, nuevaTorreColumna, torre); // Coloca la torre en su nueva posición
-                setCelda(filaOrigen, torreColumna, null); // Limpia la posición original de la torre
-                ((Torre) torre).mover(); // Marca que la torre se ha movido
+            if (manejarEnroque(filaOrigen, columnaOrigen, filaDestino, columnaDestino)) {
+                return true;
+            } else {
+                return false; // Enroque inválido
             }
         }
 
@@ -118,6 +107,61 @@ public class Tablero {
         ficha.mover();
 
         return true;
+    }
+
+    private boolean manejarEnroque(int filaOrigen, int columnaOrigen, int filaDestino, int columnaDestino) {
+        Rey rey = (Rey) getCelda(filaOrigen, columnaOrigen);
+        if (rey == null || rey.seHaMovido()) {
+            return false; // El rey ya se ha movido
+        }
+
+        int direccion = (columnaDestino > columnaOrigen) ? 1 : -1;
+        int torreColumna = (direccion == 1) ? 7 : 0;
+        Ficha torre = getCelda(filaOrigen, torreColumna);
+
+        if (!(torre instanceof Torre) || ((Torre) torre).seHaMovido()) {
+            return false; // La torre ya se ha movido o no es una torre
+        }
+
+        // Verificar que no haya piezas entre el rey y la torre
+        for (int col = columnaOrigen + direccion; col != torreColumna; col += direccion) {
+            if (getCelda(filaOrigen, col) != null) {
+                return false; // Hay obstrucciones
+            }
+        }
+
+        // Verificar que el rey no pase por casillas amenazadas
+        for (int col = columnaOrigen; col != columnaDestino + direccion; col += direccion) {
+            if (estaCasillaAmenazada(filaOrigen, col, rey.getColor())) {
+                return false; // El rey pasa por o termina en una casilla amenazada
+            }
+        }
+
+        // Realizar el enroque
+        int nuevaTorreColumna = columnaOrigen + direccion;
+        setCelda(filaOrigen, columnaDestino, rey);
+        setCelda(filaOrigen, columnaOrigen, null);
+        setCelda(filaOrigen, nuevaTorreColumna, torre);
+        setCelda(filaOrigen, torreColumna, null);
+
+        rey.mover();
+        ((Torre) torre).mover();
+
+        return true;
+    }
+
+    private boolean estaCasillaAmenazada(int fila, int columna, TiposColor color) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Ficha ficha = getCelda(i, j);
+                if (ficha != null && ficha.getColor() != color) {
+                    if (ficha.validarMovimiento(i, j, fila, columna, this)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public boolean hayObstruccion(int filaOrigen, int columnaOrigen, int filaDestino, int columnaDestino) {
@@ -267,5 +311,4 @@ public class Tablero {
             setCelda(filaDestino, columnaDestino, nuevaFicha);
         }
     }
-
 }
