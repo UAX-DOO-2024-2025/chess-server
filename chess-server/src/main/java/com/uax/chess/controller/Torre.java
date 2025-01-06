@@ -34,7 +34,7 @@ public class Torre extends Ficha {
 
     @Override
     public char obtenerRepresentacion() {
-        return getColor() == TiposColor.BLANCO ? 'T' : 't';
+        return getColor() == TiposColor.BLANCO ? '♖' : '♜';
     }
 
     @Override

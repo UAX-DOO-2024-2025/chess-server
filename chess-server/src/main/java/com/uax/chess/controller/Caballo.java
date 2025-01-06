@@ -19,7 +19,7 @@ public class Caballo extends Ficha {
 
     @Override
     public char obtenerRepresentacion() {
-        return getColor() == TiposColor.BLANCO ? 'C' : 'c';
+        return getColor() == TiposColor.BLANCO ? '♘' : '♞';
     }
 
     @Override

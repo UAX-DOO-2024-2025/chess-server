@@ -47,7 +47,7 @@ public class Rey extends Ficha {
 
     @Override
     public char obtenerRepresentacion() {
-        return getColor() == TiposColor.BLANCO ? 'K' : 'k';
+        return getColor() == TiposColor.BLANCO ? '♔' : '♚';
     }
 
     @Override
