@@ -1,9 +1,14 @@
 package com.uax.chess.controller;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializable;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+
+import java.io.IOException;
 import java.util.Scanner;
 
-public class Tablero {
-    private static Tablero instancia;
+public class Tablero implements JsonSerializable{
     private Ficha[][] celdas;
 
     public Tablero() {
@@ -43,13 +48,6 @@ public class Tablero {
         // Reyes
         celdas[0][4] = new Rey(TiposColor.NEGRO);
         celdas[7][4] = new Rey(TiposColor.BLANCO);
-    }
-
-    public static Tablero getInstance() {
-        if (instancia == null) {
-            instancia = new Tablero();
-        }
-        return instancia;
     }
 
     public Ficha getCelda(int fila, int columna) {
@@ -268,4 +266,26 @@ public class Tablero {
         }
     }
 
+
+    @Override
+    public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        jsonGenerator.writeStartArray();
+        for (Ficha[] fila : celdas) {
+            jsonGenerator.writeStartArray();
+            for (Ficha ficha : fila) {
+                if (ficha != null) {
+                    ficha.serialize(jsonGenerator, serializerProvider);
+                } else {
+                    jsonGenerator.writeNull();
+                }
+            }
+            jsonGenerator.writeEndArray();
+        }
+        jsonGenerator.writeEndArray();
+    }
+
+    @Override
+    public void serializeWithType(JsonGenerator gen, SerializerProvider serializers, TypeSerializer typeSer) throws IOException {
+        serialize(gen, serializers);
+    }
 }

@@ -1,6 +1,10 @@
 package com.uax.chess.controller;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.uax.chess.controller.Ficha;
+
+import java.io.IOException;
 
 public class Alfil extends Ficha {
 
@@ -25,4 +29,5 @@ public class Alfil extends Ficha {
     protected int getOrdenPrioridad() {
         return 5; // Menor prioridad que Torre y Reina
     }
+
 }

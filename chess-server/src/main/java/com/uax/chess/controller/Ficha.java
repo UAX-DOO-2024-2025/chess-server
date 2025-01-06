@@ -1,8 +1,13 @@
 package com.uax.chess.controller;
 
-import com.uax.chess.controller.Color;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializable;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 
-public abstract class Ficha implements Color, Comparable<Ficha> {
+import java.io.IOException;
+
+public abstract class Ficha implements Color, Comparable<Ficha>, JsonSerializable {
     private TiposColor color;
 
     public Ficha(TiposColor color) {
@@ -40,5 +45,18 @@ public abstract class Ficha implements Color, Comparable<Ficha> {
     protected abstract int getOrdenPrioridad();
 
     public void mover() {
+    }
+
+    @Override
+    public void serialize(JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        jsonGenerator.writeStartObject();
+        jsonGenerator.writeStringField("color", color.toString());
+        jsonGenerator.writeStringField("representacion", String.valueOf(obtenerRepresentacion()));
+        jsonGenerator.writeEndObject();
+    }
+
+    @Override
+    public void serializeWithType(JsonGenerator jsonGenerator, SerializerProvider serializerProvider, TypeSerializer typeSerializer) throws IOException {
+        serialize(jsonGenerator, serializerProvider);
     }
 }
