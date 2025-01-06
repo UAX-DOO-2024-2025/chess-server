@@ -22,11 +22,11 @@ public class ChessServerApplication {
 
     @PostMapping("/partida")
     @ResponseBody
-    public String crearPartida() {
+    public int crearPartida() {
         ChessGame partida = new ChessGame();
         partidas.put(id, partida);
         id++;
-        return "Partida creada con id: " + (id - 1);
+        return id - 1;
     }
 
     @GetMapping("/partida/{id}")

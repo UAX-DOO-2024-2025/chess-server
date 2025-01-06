@@ -22,7 +22,7 @@ public class Alfil extends Ficha {
 
     @Override
     public char obtenerRepresentacion() {
-        return getColor() == TiposColor.BLANCO ? '♗' : ♝';
+        return getColor() == TiposColor.BLANCO ? '♗' : '♝';
     }
 
     @Override
