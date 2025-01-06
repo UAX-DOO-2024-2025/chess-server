@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.uax.chess.model.Posicion;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Tablero implements JsonSerializable{
@@ -287,5 +289,24 @@ public class Tablero implements JsonSerializable{
     @Override
     public void serializeWithType(JsonGenerator gen, SerializerProvider serializers, TypeSerializer typeSer) throws IOException {
         serialize(gen, serializers);
+    }
+
+    public ArrayList<Posicion> comprobarMovimientos(int filaOrigen, int columnaOrigen) {
+        Ficha ficha = getCelda(filaOrigen, columnaOrigen);
+        ArrayList<Posicion> posiciones= new ArrayList<Posicion>();
+        for (int fila = 0; fila < 8 ; fila++) {
+            for (int columna = 0; columna <8 ; columna++) {
+
+                Ficha temporal = getCelda(fila, columna);
+
+                if (moverFicha(filaOrigen,columnaOrigen,fila,columna)){
+                    posiciones.add(new Posicion(fila,columna));
+                    setCelda(fila, columna, temporal);
+                    setCelda(filaOrigen, columnaOrigen, ficha);
+                }
+
+            }
+        }
+        return posiciones;
     }
 }
