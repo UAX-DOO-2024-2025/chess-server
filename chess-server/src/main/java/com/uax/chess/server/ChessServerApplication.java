@@ -1,12 +1,14 @@
 package com.uax.chess.server;
 
 import com.uax.chess.model.ChessGame;
+import com.uax.chess.model.Posicion;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @SpringBootApplication
@@ -48,5 +50,16 @@ public class ChessServerApplication {
 		partida.getTablero().moverFicha(filaOrigen, columnaOrigen, filaDestino, columnaDestino);
 		return partida;
 	}
+
+    @GetMapping("/partida/{id}/comprobar")
+    @ResponseBody
+    public ArrayList<Posicion> movimientosPosibles(@PathVariable Integer id, @RequestParam int filaOrigen, @RequestParam int columnaOrigen) {
+        // TODO: hacer metodo tablero movimientos posibles
+        if (!partidas.containsKey(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La partida no existe, o ya se ha terminado.");
+        }
+        ChessGame partida = partidas.get(id);
+        return partida.getTablero().comprobarMovimientos(filaOrigen,columnaOrigen);
+    }
 
 }
