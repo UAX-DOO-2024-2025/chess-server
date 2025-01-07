@@ -51,7 +51,7 @@ public class ChessServerApplication {
 		return partida;
 	}
 
-    @PostMapping("/partida/{id}/comprobar")
+    @GetMapping("/partida/{id}/comprobar")
     @ResponseBody
     public ArrayList<Posicion> movimientosPosibles(@PathVariable Integer id, @RequestParam int filaOrigen, @RequestParam int columnaOrigen) {
         // TODO: hacer metodo tablero movimientos posibles
